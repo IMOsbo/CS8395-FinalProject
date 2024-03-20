@@ -18,7 +18,7 @@ $$
     - $J_1^*$ is the Jacobian psuedo-inverse
     - $\dot q_1$ is a particular solution
 
-This allows the algorithm to explore on the gradient for both the main objective ($J_1^* \dot q_1$) and the secondary objective ($(I_n - J_1^*J_1)(-\gamma \frac{dp}{d\theta})^T$). The two objectives will be the ones in [^5]. By replacing the gradient step in BioIK with this expression, I'm hoping to be able to optimize both of the variables concurrently. Depending on time constraints, I will try to refine the weighting metric from [^5], potentially replacing the logistic function with another weighting function.
+In an engineering setting, this is used to calculate the velocity of the end of the link (usually a manipulator, but in this case a hand). However, this could also be used as part of our gradient descrnt, allowing the algorithm to explore on the gradient for both the main objective ($J_1^* \dot q_1$) and the secondary objective ($(I_n - J_1^*J_1)(-\gamma \frac{dp}{d\theta})^T$). The two objectives will be the ones in [^5]. By replacing the gradient step in BioIK with this expression, I'm hoping to be able to optimize both of the variables concurrently. Depending on time constraints, I will try to refine the weighting metric from [^5], potentially replacing the logistic function with another weighting function.
 
 ## Technical Details
 
