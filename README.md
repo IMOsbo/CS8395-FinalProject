@@ -6,28 +6,31 @@ _Isaiah Osborne_
 
 _Improving Augmented Reality Pose Redirection Using Potential Functions and Gradient Descent_
 
-As shown throughout this class, augmented reality has the ability to revolutionize remote work and collaboration. However, there are issues 
+As shown throughout this class, augmented reality has the ability to revolutionize remote work and collaboration. However, there are issues with collaborating between real and virtual environments, such as transferring poses between the environments [^5]. Pose redirection can be viewed as a multi-objective optimization problem, with the two objectives being to minimize the position error [^5]. It also works to minimize the difference between the ground-truth's pose and the new pose - the model favors new poses that are closer to the existing pose. Previous work for rerouting poses relies on BioIK and its genetic algorithm implementation. In this problem, BioIK employs genetic algorithm optimization to find the solution to the placement of the arm, but it does not do anything to optimize the angles of the individual joints of the arm. To counteract this problem, some people have tried dynamically weighting the two objectives [^3], [^4]. 
 
-- Augmented reality has the ability to dramatically improve remote collaboration
-- One problem is tracking the position of hands
-  - Especially redirecting poses between actual and virtual environments
-- Existing solutions focus on adapting BioIK
-  - BioIK employs genetic algorithm optimization to solve the initial problem of finding a solution to the placement of the arm
-- BioIK works surprisingly well, but struggles to balance the different functions involved
-  - Other works have tried to combat this by dynamically weighting the functions
-  - (Cite <https://3dvar.com/Ullal2021A.pdf> and <https://dl-acm-org.proxy.library.vanderbilt.edu/doi/pdf/10.1145/3565970.3567681>) 
-- I want to explore ways to incorporate another evaluation function directly into the gradient descent portion of BioIK
-
-We can use an idea from inverse kinematics to optimize both of our variables simulataneously. From [^1] and [^2], we can write the derivative of the two functions together like this (rewritten for clarity):
+For my project, I want to explore other ways to optimize the pose redirection. For example, we can use other ideas from inverse kinematics to optimize both of our variables simulataneously. From [^1] and [^2], we can write the derivative of the two functions together like this (rewritten for clarity):
 
 $$
 d\theta = J_1^* \dot q_1 + (I_n - J_1^*J_1)(-\gamma \frac{dp}{d\theta})^T
 $$
 
-  - Where:
+- Where:
     - $J_1^*$ is the Jacobian psuedo-inverse
     - $\dot q_1$ is a particular solution
-  - This allows the algorithm to explore on the gradient for both the main objective ($J_1^* \dot q_1$) and the secondary objective ($(I_n - J_1^*J_1)(-\gamma \frac{dp}{d\theta})^T$)
+
+This allows the algorithm to explore on the gradient for both the main objective ($J_1^* \dot q_1$) and the secondary objective ($(I_n - J_1^*J_1)(-\gamma \frac{dp}{d\theta})^T$). The two objectives will be the ones in [^5]. By replacing the gradient step in BioIK with this expression, I'm hoping to be able to optimize both of the variables concurrently. Depending on time constraints, I will try to refine the weighting metric from [^5], potentially replacing the logistic function with another weighting function.
+
+## Technical Details
+
+I am planning on using Unity and the Microsoft Mixed Reality Toolkit for my project. I am also going to use and modify the BioIK package for the inverse kinematics optimization. My final project will be deployed using either the MRTK simulator or an actual Hololens 2. 
+
+<https://unity.com/>
+
+<https://learn.microsoft.com/en-us/windows/mixed-reality/mrtk-unity/mrtk3-overview/>
+
+<https://learn.microsoft.com/en-us/windows/mixed-reality/mrtk-unity/mrtk3-input/packages/input/input-simulation>
+
+<https://github.com/sebastianstarke/BioIK>
 
 ## Citations
 
@@ -36,3 +39,7 @@ $$
 [^2]: Yoshihiko Nakamura. _Advanced Robotics Redundancy and Optimization_, Addison-Wesley, 1991.
 
 [^3]: S. Starke, N. Hendrich and J. Zhang, "Memetic Evolution for Generic Full-Body Inverse Kinematics in Robotics and Animation," in _IEEE Transactions on Evolutionary Computation_, vol. 23, no. 3, pp. 406-420, June 2019, doi: 10.1109/TEVC.2018.2867601.
+
+[^4]: Ullal A, Watkins C, Sarkar N. "A Dynamically Weighted Multi-Objective Optimization Approach to Positional Interactions in Remote-Local Augmented/Mixed Reality," in _The Institute of Electrical and Electronics Engineers, Inc. (IEEE) Conference Proceedings._ The Institute of Electrical and Electronics Engineers, Inc. (IEEE); 2021. doi:10.1109/AIVR52153.2021.00014
+
+[^5]: Akshith Ullal, Alexandra Watkins, and Nilanjan Sarkar. 2022. A Multi-Objective Optimization Framework for Redirecting Pointing Gestures in Remote-Local Mixed/Augmented Reality. In Proceedings of the 2022 ACM Symposium on Spatial User Interaction (SUI '22). Association for Computing Machinery, New York, NY, USA, Article 9, 1–11. https://doi-org.proxy.library.vanderbilt.edu/10.1145/3565970.3567681
