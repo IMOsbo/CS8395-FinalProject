@@ -4,7 +4,7 @@ _Isaiah Osborne_
 
 # Code is now available here: <https://github.com/VU-RASL/InverseKinematics>
 
-_Why?!?_ Well, Github limits LFS storage on Personal accounts 🫤, so I used my lab's research one instead. If you look at the history (<https://github.com/VU-RASL/InverseKinematicsOptimization/commits/master/>), all commits are from me, `IMOsbo`.
+_Why?!?_ Well, Github limits LFS storage on Personal accounts 🫤, so I used my lab's research one instead. If you look at the history (<https://github.com/VU-RASL/InverseKinematics/commits/master/>), all commits are from me, `IMOsbo`.
 
 ## Project Description
 
